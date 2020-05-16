@@ -6,11 +6,14 @@ namespace Homework.Tests
     public class Tests
     {
         [Theory]
-        [InlineData("A", 5)]
-        [InlineData("AB", 5)]
-        [InlineData("BB", 5)]
-        [InlineData("ABB", 7)]
-        public void Deliver(string deliveries, int expectedTime)
+        [InlineData(5, "A")]
+        [InlineData(5, "AB")]
+        [InlineData(5, "BB")]
+        [InlineData(7, "ABB")]
+        [InlineData(29, "AABABBAB")]
+        [InlineData(29, "AAAABBBB")]
+        [InlineData(49, "BBBBAAAA")]
+        public void Deliver(int expectedTime, string deliveries)
         {
             var calculator = new TransportCalculator(deliveries);
             var result = calculator.Deliver();

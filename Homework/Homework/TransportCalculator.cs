@@ -7,13 +7,14 @@ namespace Homework
     public class TransportCalculator
     {
         private readonly char[] _destinations;
-        private int totalTime = 0;
         private Map _map;
+        private EventPublisher _eventPublisher;
 
         public TransportCalculator(string destinations)
         {
+            _eventPublisher = new EventPublisher();
             _destinations = destinations.ToCharArray();
-            _map = new Map();
+            _map = new Map(_eventPublisher);
         }
 
         public int Deliver()
@@ -51,14 +52,12 @@ namespace Homework
             {
                 Load();
 
-                totalTime = totalTime + 1;
-                Console.WriteLine();
-                Console.WriteLine($"TimeTick {totalTime}");
+                _eventPublisher.Time = _eventPublisher.Time + 1;
 
                 Move();
             }
 
-            return totalTime;
+            return _eventPublisher.Time;
         }
 
         private void Move()
